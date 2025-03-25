@@ -1,0 +1,77 @@
+.button {
+    padding: 10px;
+    border: 1px none #096ad0;
+    border-radius: 40px;
+    background-color: #926000;
+    box-shadow: 0 4px 11px 0 rgba(146, 96, 0, 0.35);
+    -webkit-transition: all 200ms ease;
+    transition: all 200ms ease;
+    font-family: Montserrat, sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #fff;
+}
+
+
+.button:hover {
+    border: 1px none #096ad0;
+    background-color: #3f3700;
+    box-shadow: 0 6px 20px 0 rgba(1, 58, 117, 0.33);
+    -webkit-transform: translate(0px, -4px);
+    -ms-transform: translate(0px, -4px);
+    transform: translate(0px, -4px);
+    color: #fff;
+}
+
+.card-header{
+    background-color: #f3d940;
+    color: black;
+}
+
+.plus-icon{
+    padding-bottom: 2px;
+    font-size: large;    
+}
+
+.main {
+  border: 2px solid black;
+  border-radius: 2%;
+  padding: 20px;
+  position: relative;
+}
+
+@media screen and (max-width: 600px) {
+  .main {
+    border: none;
+  }
+}
+
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+  .main {
+    padding: 40px;
+    border: 1px solid gray;
+  }
+}
+
+@media screen and (min-width: 1025px) {
+  .main {
+    padding: 50px;
+    border: 2px solid black;
+  }
+}
+
+.hot{
+  margin-bottom: 7px;
+}
+
+.time{
+  margin-left: 20px;
+  margin-bottom: 5px;
+}
+
+.date{
+  margin-left: 20px;
+  margin-bottom: 5px;
+}
