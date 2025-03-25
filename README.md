@@ -1,5 +1,5 @@
 # Advanced To-Do App
-
+### Author: Vishal Varotariya
 An advanced To-Do application built with **React, Redux, and Vite**. This app enables users to manage tasks efficiently with priority levels, view real-time weather updates, and experience a clean and responsive UI.
 
 ## Features
