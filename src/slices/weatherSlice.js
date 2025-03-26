@@ -1,9 +1,10 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
+const API_KEY = import.meta.env.VITE_API_KEY;
+
 // Async thunk to fetch weather data from OpenWeather API
 export const fetchWeather = createAsyncThunk('weather/fetchWeather', async () => {
-  const API_KEY = 'a56b30c84e8ef952e9c9b6f261ab0f63'; // Replace with a valid API key
   const response = await axios.get(
     `https://api.openweathermap.org/data/2.5/weather?q=Jamnagar&appid=${API_KEY}&units=metric`
   );
