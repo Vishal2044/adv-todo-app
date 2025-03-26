@@ -10,12 +10,7 @@ export default function App() {
       <Router>
         <Routes>
           <Route path="/" element={<Login />} />
-          <Route
-            path="/tasks"
-            element={              
-                <Tasks />              
-            }
-          />
+          <Route path="/tasks" element={<Tasks />} />
         </Routes>
       </Router>
     </Provider>
