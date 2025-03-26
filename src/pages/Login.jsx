@@ -31,7 +31,7 @@ export default function Login() {
 
   return (
     <div className="container d-flex flex-column align-items-center justify-content-center vh-100">
-      <h2 className="text-black font-bold mb-4 text-center">Welcome to Advance To-Do App</h2>
+      <h2 className="text-black font-bold mb-4 text-center">Welcome to Advance To-Do App.</h2>
       <input
         type="text"
         className="form-control mb-3 w-50"
