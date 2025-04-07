@@ -1,3 +1,4 @@
+import React from "react";
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { addTask } from '../slices/taskSlice';
@@ -10,51 +11,49 @@ export default function TaskInput() {
   const [error, setError] = useState('');
   const dispatch = useDispatch();
 
-  // Handle adding a new task
   const handleAddTask = () => {
     if (task.trim()) {
-      dispatch(addTask({ id: uuidv4(), text: task, priority })); // Dispatch new task
+      dispatch(addTask({ id: uuidv4(), text: task, priority }));
       setTask('');
       setPriority('Medium');
-      setError(''); // Clear error if task is valid
+      setError('');
     } else {
-      setError('Task cannot be empty'); // Set error message
+      setError('Task cannot be empty');
     }
   };
 
   return (
-    <div className="container mt-3">
-      <div className="row g-2">
-        <div className="col-12 col-md-6">
-          <input
-            className="form-control shadow-sm"
-            type="text"
-            placeholder="Enter task..."
-            value={task}
-            onChange={(e) => setTask(e.target.value)}            
-          />
-        </div>
-        <div className="col-12 col-md-6">
-          <select
-            className="form-select shadow-sm"
-            value={priority}
-            onChange={(e) => setPriority(e.target.value)}
-          >
-            <option value="High" className="text-danger">High</option>
-            <option value="Medium" className="text-success">Medium</option>
-            <option value="Low" className="text-warning">Low</option>
-          </select>
-        </div>
+    <div className="mt-3">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+        <input
+          className="p-2 border rounded shadow"
+          type="text"
+          placeholder="Enter task..."
+          value={task}
+          onChange={(e) => setTask(e.target.value)}
+        />
+        <select
+          className="p-2 border rounded shadow"
+          value={priority}
+          onChange={(e) => setPriority(e.target.value)}
+        >
+          <option value="High" className="text-red-500">High</option>
+          <option value="Medium" className="text-green-500">Medium</option>
+          <option value="Low" className="text-yellow-500">Low</option>
+        </select>
       </div>
-      <div className="row mt-3">
+      <div className="mt-3">
         {error && (
-          <div className="col-12 text-danger mb-2">
+          <div className="text-red-500 mb-2">
             {error}
           </div>
         )}
-        <div className="col-12 text-center">
-          <button className="font-bold button w-50 w-md-50" onClick={handleAddTask}>
-            Add Task <IoIosAdd size={25} className='plus-icon'/>
+        <div className="text-center">
+          <button
+            className="bg-blue-500 text-white font-bold py-2 px-4 rounded shadow hover:bg-blue-600"
+            onClick={handleAddTask}
+          >
+            Add Task <IoIosAdd size={25} className="inline" />
           </button>
         </div>
       </div>

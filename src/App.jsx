@@ -1,3 +1,4 @@
+import React from 'react'; // Add this line
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Login from './pages/Login';
 import Tasks from './pages/Tasks';

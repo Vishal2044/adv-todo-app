@@ -1,8 +1,8 @@
+import React from "react";
 import { useSelector, useDispatch } from 'react-redux';
-import { deleteTask } from '../slices/taskSlice';
+import { deleteTask, toggleTaskCompletion } from '../slices/taskSlice';
 import { RiDeleteBin2Line } from "react-icons/ri";
 import { useState } from 'react';
-import '../styles.css';
 
 export default function TaskList() {
   const tasks = useSelector(state => state.tasks.tasks);
@@ -10,26 +10,23 @@ export default function TaskList() {
   const [filter, setFilter] = useState('All');
   const [sortOrder, setSortOrder] = useState('None');
 
-  // Determine CSS class for task priority
   const getPriorityClass = (priority) => {
     switch (priority) {
       case 'High':
-        return 'text-danger fw-bold';
+        return 'text-red-500 font-bold';
       case 'Medium':
-        return 'text-success fw-bold';
+        return 'text-green-500 font-bold';
       case 'Low':
-        return 'text-warning fw-bold';
+        return 'text-yellow-500 font-bold';
       default:
-        return 'text-dark';
+        return 'text-gray-700';
     }
   };
 
-  // Filter tasks based on selected priority
   const filteredTasks = tasks.filter(task => 
     filter === 'All' || task.priority === filter
   );
 
-  // Sort tasks based on selected order
   const sortedTasks = [...filteredTasks].sort((a, b) => {
     if (sortOrder === 'High to Low') {
       return b.priority.localeCompare(a.priority);
@@ -40,11 +37,13 @@ export default function TaskList() {
     return 0;
   });
 
+  const completedTasks = tasks.filter(task => task.completed);
+
   return (
-    <div className="container mt-4">
-      <div className="d-flex justify-content-between mb-3">
+    <div className="mt-4">
+      <div className="flex justify-between gap-2 mb-3">
         <select
-          className="form-select w-50 me-2"
+          className="w-1/2 mr-2 p-2 border rounded"
           value={filter}
           onChange={(e) => setFilter(e.target.value)}
         >
@@ -54,7 +53,7 @@ export default function TaskList() {
           <option value="Low">Low</option>
         </select>
         <select
-          className="form-select w-50"
+          className="w-1/2 p-2 border rounded"
           value={sortOrder}
           onChange={(e) => setSortOrder(e.target.value)}
         >
@@ -63,18 +62,61 @@ export default function TaskList() {
           <option value="Low to High">Low to High</option>
         </select>
       </div>
-      <div className="card shadow-sm">
-        <div className="card-header bg-warning text-black text-center fw-bold">
+      <div className="shadow rounded mb-4">
+        <div className="bg-yellow-300 text-black text-center font-bold p-2">
           Task List
         </div>
-        <ul className="list-group list-group-flush">
-          {sortedTasks.map(task => (
-            <li key={task.id} className="list-group-item d-flex justify-content-between align-items-center">
-              <span className={getPriorityClass(task.priority)}>
-                {task.text}
-              </span>
-              <button className="btn btn-outline-danger btn-sm" onClick={() => dispatch(deleteTask(task.id))}>
-                <RiDeleteBin2Line size={15} />
+        <ul className="divide-y">
+          {sortedTasks
+            .filter(task => !task.completed)
+            .map(task => (
+              <li key={task.id} className="flex justify-between items-center p-2">
+                <div className="flex items-center gap-2">
+                  <input
+                    type="checkbox"
+                    checked={task.completed}
+                    onChange={() => dispatch(toggleTaskCompletion(task.id))}
+                  />
+                  <span
+                    className={`${getPriorityClass(task.priority)} ${
+                      task.completed ? 'line-through text-gray-500' : ''
+                    }`}
+                  >
+                    {task.text}
+                  </span>
+                </div>
+                <button
+                  className="text-red-500 bg-white hover:text-red-700"
+                  onClick={() => dispatch(deleteTask(task.id))}
+                >
+                  <RiDeleteBin2Line size={20} />
+                </button>
+              </li>
+            ))}
+        </ul>
+      </div>
+      <div className="shadow rounded">
+        <div className="bg-green-300 text-black text-center font-bold p-2">
+          Completed Tasks
+        </div>
+        <ul className="divide-y">
+          {completedTasks.map(task => (
+            <li key={task.id} className="flex justify-between items-center p-2">
+              <div className="flex items-center gap-2">
+                <input
+                  type="checkbox"
+                  checked={task.completed}
+                  onChange={() => dispatch(toggleTaskCompletion(task.id))}
+                />
+                <span className="line-through text-gray-500">
+                  {task.text}
+                </span>
+              </div>
+              <button
+                className="text-red-500 bg-white hover:text-red-700"
+                onClick={() => dispatch(deleteTask(task.id))}
+              >
+                <RiDeleteBin2Line size={20} />
               </button>
             </li>
           ))}
